@@ -21,7 +21,8 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	public GestorePrenotazioni() {
 		
 	}
-	   public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
+	ciao // da cancellare   
+	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
 			Scanner input = new Scanner (System.in);	    
 			CateringAnimazione nuovocateringanimazione = new CateringAnimazione();
 			Affitto nuovoaffitto = new Affitto();
