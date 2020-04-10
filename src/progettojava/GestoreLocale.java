@@ -6,8 +6,6 @@ import java.util.Locale;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import progettojava.Affitto.Affitto;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
 

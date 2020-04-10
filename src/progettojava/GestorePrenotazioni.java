@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.Vector;
 
-import progettojava.Affitto.Affitto;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
 
@@ -21,25 +20,20 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	public GestorePrenotazioni() {
 		
 	}
-	ciao // da cancellare   
+	  
 	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
 			Scanner input = new Scanner (System.in);	    
 			CateringAnimazione nuovocateringanimazione = new CateringAnimazione();
-			Affitto nuovoaffitto = new Affitto();
 			Catering nuovocatering = new Catering();
 			Locale.setDefault(Locale.ITALIAN); // settare data in italiano 
 			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/yy) ");
-
 			String stringaData = input.nextLine();
 			//converto la stringa in un oggetto della classe Date
-			//tutto questo ci conviene metterlo in un metodo ausiliario?
-			//oppure in affitto che modifichiamo in Prenotazione e affitto dal momento che ogni prenotazione prevede un affitto?
 			try {
 				
 				DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
 				// questo metodo permette di fare controlli sulla stringa inserita prima di convertirla
 				data.setLenient(false);
-				
 				Date d = data.parse(stringaData);
 			    
 			    if (!calendario.contains(d)) { // se il calendario non contiene la data selezionata
@@ -47,7 +41,28 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    	calendario.add(d);
 			    	 if (calendario.contains(d)) {
 					    	System.out.println("Data prenotazione confermata!"); 
-			    	 }	    	 
+			    	        System.out.println ("Scegli una forma di prenotazione: \n" 
+			    			 + " 1 = semplice affitto del locale \n"
+			    			 + " 2 = affitto locale + catering \n"
+			    			 + " 3 = affitto locale + catering + animazione \n");
+			    	 }
+			    	 int sceltaPrenotazione = input.nextInt();
+			    	// while ( sceltaPrenotazione != 3) {
+			    		 switch (sceltaPrenotazione ) {
+			    		 case 1: 
+			    			 System.out.println ("Prenotazione affitto effettuata"); 
+			    			 break; 
+			    		 case 2: 
+			    			 Catering.GestioneCatering();
+			    			 break;
+			    		 case 3 : 
+			    			 CateringAnimazione.GestioneCateringAnimazione();
+			    			 break;
+			    		 default : System.out.println ("Valore errato");
+			    		 
+			    		 }
+			    	  
+			    	 
 			    } 			    
 			    else  
 			    	System.out.println ("Data occupata");   

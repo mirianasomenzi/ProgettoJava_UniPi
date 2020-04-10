@@ -1,9 +1,19 @@
 package progettojava.Affitto;
-
-public class Catering extends Affitto {
-
-	public Catering() {
+import java.util.Scanner;
+public class Catering  {
+	private int bambini;
+    //costruttore
+	public Catering () {
+		
 		
 	}
+	public static int GestioneCatering() {
+		
+	System.out.println ("Quanti bambini sono previsti?");
+	Scanner input= new Scanner (System.in);
+	int bambini = input.nextInt();
+	return bambini;
+	}
+	
 
 }
