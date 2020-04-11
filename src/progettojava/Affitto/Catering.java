@@ -1,4 +1,5 @@
 package progettojava.Affitto;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Catering  {
 	private int bambini;
@@ -7,12 +8,17 @@ public class Catering  {
 		
 		
 	}
-	public static int GestioneCatering() {
+	public static void GestioneCatering() {
 		
 	System.out.println ("Quanti bambini sono previsti?");
 	Scanner input= new Scanner (System.in);
-	int bambini = input.nextInt();
-	return bambini;
+	try {
+		int bambini = input.nextInt();
+		System.out.println ("Prenotazione effettuta!");
+	//return bambini;
+	} catch (InputMismatchException e) {
+		System.out.println ("Valore non valido...\n" + "ritenta");
+	}
 	}
 	
 
