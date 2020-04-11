@@ -27,10 +27,9 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			Catering nuovocatering = new Catering();
 			Locale.setDefault(Locale.ITALIAN); // settare data in italiano 
 			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/yy) ");
-			String stringaData = input.nextLine();
 			//converto la stringa in un oggetto della classe Date
 			try {
-				
+				String stringaData = input.nextLine();
 				DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
 				// questo metodo permette di fare controlli sulla stringa inserita prima di convertirla
 				data.setLenient(false);
@@ -50,7 +49,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    	// while ( sceltaPrenotazione != 3) {
 			    		 switch (sceltaPrenotazione ) {
 			    		 case 1: 
-			    			 System.out.println ("Prenotazione affitto effettuata"); 
+			    			 System.out.println ("Prenotazione affitto effettuata!"); 
 			    			 break; 
 			    		 case 2: 
 			    			 Catering.GestioneCatering();
@@ -58,7 +57,8 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    		 case 3 : 
 			    			 CateringAnimazione.GestioneCateringAnimazione();
 			    			 break;
-			    		 default : System.out.println ("Valore errato");
+			    		 default : System.out.println ("Valore errato"); 
+			    		 // inserire eccezione se inserisce valore non valido
 			    		 
 			    		 }
 			    	  
@@ -70,6 +70,8 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		
 			catch (ParseException  e) {
 				System.out.println ("Formato data non valido");
+				input.nextLine();
+				System.out.println ("Ritenta...");
 			}
 		}
 }
