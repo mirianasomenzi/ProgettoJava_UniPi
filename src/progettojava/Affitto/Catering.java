@@ -14,7 +14,7 @@ public class Catering  {
 	Scanner input= new Scanner (System.in);
 	try {
 		int bambini = input.nextInt();
-		System.out.println ("Prenotazione effettuta!");
+		System.out.println ("Prenotazione effettuata!");
 	//return bambini;
 	} catch (InputMismatchException e) {
 		System.out.println ("Valore non valido...\n" + "ritenta");
