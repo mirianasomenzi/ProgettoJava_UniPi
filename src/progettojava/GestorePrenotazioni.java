@@ -18,7 +18,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	                                                       // tutti i metodi e non viene sovrascritto ogni volta, e private così è
 	                                                       // modificabile solo dalla classe GestorePrenotazioni
 	public GestorePrenotazioni() {
-		
+	
 	}
 	  
 	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
@@ -52,10 +52,11 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    			 System.out.println ("Prenotazione affitto effettuata!"); 
 			    			 break; 
 			    		 case 2: 
-			    			 Catering.GestioneCatering();
+			    			 nuovocatering.gestioneCatering (); // faccio riferimento a un metodo non statico per cui dopo aver
+			    			                                    // dichiarato l'oggetto alla riga 26/27 faccio oggetto.metodo();
 			    			 break;
 			    		 case 3 : 
-			    			 CateringAnimazione.GestioneCateringAnimazione();
+			    			 nuovocateringanimazione.gestioneCateringAnimazione();
 			    			 break;
 			    		 default : System.out.println ("Valore errato"); 
 			    		 // inserire eccezione se inserisce valore non valido

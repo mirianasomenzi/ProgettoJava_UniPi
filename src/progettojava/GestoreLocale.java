@@ -37,7 +37,7 @@ public class GestoreLocale {
 		}
 	}
 	 // creazione menu del programma  
-	// \n serve per far andare a capo ( new line)
+	// \n serve per far andare a capo (new line)
 	public static void stampaMenu() {
 		System.out.println("Menu programma:\n"
 				+ "1 = aggiungere nuove prenotazioni \n"

@@ -2,13 +2,13 @@ package progettojava.Affitto;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Catering  {
-	private int bambini;
+	protected int bambini; // cambiato da private a protected così la sottoclasse CateringAnimazione può accedere
     //costruttore
 	public Catering () {
 		
 		
 	}
-	public static void GestioneCatering() {
+	public void gestioneCatering() { //tolto static e messa la minuscola
 		
 	System.out.println ("Quanti bambini sono previsti?");
 	Scanner input= new Scanner (System.in);
