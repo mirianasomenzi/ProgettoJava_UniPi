@@ -26,7 +26,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			CateringAnimazione nuovocateringanimazione = new CateringAnimazione();
 			Catering nuovocatering = new Catering();
 			Locale.setDefault(Locale.ITALIAN); // settare data in italiano 
-			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/yy) ");
+			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
 			//converto la stringa in un oggetto della classe Date
 			try {
 				String stringaData = input.nextLine();
@@ -62,8 +62,6 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    		 // inserire eccezione se inserisce valore non valido
 			    		 
 			    		 }
-			    	  
-			    	 
 			    } 			    
 			    else  
 			    	System.out.println ("Data occupata");   

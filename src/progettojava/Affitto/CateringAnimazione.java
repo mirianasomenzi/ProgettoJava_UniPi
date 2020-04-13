@@ -18,7 +18,6 @@ public class CateringAnimazione extends Catering {
 				+ " 1 = organizzazione di giochi \n"
 				+ " 2 = spettacolo di magia \n"
 				+ " 3 = spettacolo di burattini \n"); // inserire errore 
-		//Scanner input = new Scanner(System.in);
 		try {
 			int SceltaAnimazione = input.nextInt();
 			if ((SceltaAnimazione <1) || (SceltaAnimazione > 3)) {
