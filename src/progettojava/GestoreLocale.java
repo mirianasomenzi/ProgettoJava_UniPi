@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.Vector;
 import java.util.Date;
 import java.util.Locale;
-import java.util.InputMismatchException;
+import java.util.InputMismatchException; 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +16,7 @@ public class GestoreLocale {
 		Scanner input = new Scanner (System.in);
 		GestorePrenotazioni gestorePrenotazioni = new GestorePrenotazioni (); // creato oggetto gestorePrenotazioni
 		stampaMenu(); // stampare il menu 
-		try {
+		try { // aggiunto il try catch
 			int scelta = input.nextInt(); //  acquisisco input
 		while (scelta !=8) {
 			switch (scelta) {
