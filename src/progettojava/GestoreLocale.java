@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.Vector;
 import java.util.Date;
 import java.util.Locale;
+import java.util.InputMismatchException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,13 +16,16 @@ public class GestoreLocale {
 		Scanner input = new Scanner (System.in);
 		GestorePrenotazioni gestorePrenotazioni = new GestorePrenotazioni (); // creato oggetto gestorePrenotazioni
 		stampaMenu(); // stampare il menu 
-		int scelta = input.nextInt(); //  acquisisco input
+		try {
+			int scelta = input.nextInt(); //  acquisisco input
 		while (scelta !=8) {
 			switch (scelta) {
 			case 1:
 				gestorePrenotazioni.aggiungiPrenotazione(); //richiamo il metodo aggiungiPrenotazione che si trova in GestorePrenotazioni
 				break;
-			//case 2:
+			case 2:
+				gestorePrenotazioni.visualizzaPrenotazioni(); // richiamo il metodo visualizzaPrenotazioni 
+				break;
 			//case 3:
 			//case 4:
 			//case 5:
@@ -35,7 +39,10 @@ public class GestoreLocale {
 		stampaMenu();
 		scelta = input.nextInt(); // prima di tornare nel while mi richiede cosa voglio fare stampando di nuovo il menu
 		}
+		  } catch (InputMismatchException e) {
+		  	}
 	}
+		
 	 // creazione menu del programma  
 	// \n serve per far andare a capo (new line)
 	public static void stampaMenu() {

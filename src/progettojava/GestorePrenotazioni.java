@@ -1,6 +1,7 @@
 package progettojava;
 
 import java.text.DateFormat;
+import java.util.Collections;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
@@ -25,7 +26,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			Scanner input = new Scanner (System.in);	    
 			CateringAnimazione nuovocateringanimazione = new CateringAnimazione();
 			Catering nuovocatering = new Catering();
-			Locale.setDefault(Locale.ITALIAN); // settare data in italiano 
+			Locale.setDefault(Locale.ITALIAN); // settare data in italiano, DA RIVEDERE
 			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
 			//converto la stringa in un oggetto della classe Date
 			try {
@@ -73,4 +74,12 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 				System.out.println ("Ritenta...");
 			}
 		}
-}
+	public void visualizzaPrenotazioni () {
+	
+		Collections.sort(calendario); // metodo sort di Collections per poter ordinare le date presenti nel vettore 
+		//System.out.println(calendario);
+		for (Date d:calendario)
+			System.out.println(d);
+	}
+	}
+
