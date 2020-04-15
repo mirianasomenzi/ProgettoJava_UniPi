@@ -6,8 +6,10 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.Vector;
-
+//import java.util.Vector;
+import java.util.ArrayList;
+import java.util.HashMap;//treeMap
+import java.util.Set;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
 
@@ -15,9 +17,11 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	                               // nella consegna es. aggiungere prenotazione, eliminarla, visualizzare ecc) perchè facendo 
 	                               // riferimento a metodi non statici non potevano stare nel main che è static 
 	
-	private Vector <Date> calendario = new Vector<Date> ();// vettore di date, cambiato di posizione perchè in questo modo è accessibile da
-	                                                       // tutti i metodi e non viene sovrascritto ogni volta, e private così è
+	//private Vector <Date> calendario = new Vector<Date> ();// vettore di date, cambiato di posizione perchè in questo modo è accessibile da
+	                                                    // tutti i metodi e non viene sovrascritto ogni volta, e private così è
 	                                                       // modificabile solo dalla classe GestorePrenotazioni
+	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
+	// dalle date ( key) e valori (nomi)
 	public GestorePrenotazioni() {
 	
 	}
@@ -31,15 +35,19 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			//converto la stringa in un oggetto della classe Date
 			try {
 				String stringaData = input.nextLine();
+				System.out.println ("Aggiungere nominativo: ");
+				String nome = input.nextLine();
 				DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
 				// questo metodo permette di fare controlli sulla stringa inserita prima di convertirla
 				data.setLenient(false);
 				Date d = data.parse(stringaData);
 			    
-			    if (!calendario.contains(d)) { // se il calendario non contiene la data selezionata
+			    if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
 			    	System.out.println("Data disponibile");
-			    	calendario.add(d);
-			    	 if (calendario.contains(d)) {
+			    	// metodo put per inserire d come key e nome come valore
+			    	calendario.put(d, nome);
+			    	
+			    	 if (calendario.containsKey(d)) {
 					    	System.out.println("Data prenotazione confermata!"); 
 			    	        System.out.println ("Scegli una forma di prenotazione: \n" 
 			    			 + " 1 = semplice affitto del locale \n"
@@ -74,12 +82,19 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 				System.out.println ("Ritenta...");
 			}
 		}
-	public void visualizzaPrenotazioni () {
+	//public void visualizzaPrenotazioni () {
 	
-		Collections.sort(calendario); // metodo sort di Collections per poter ordinare le date presenti nel vettore 
+		//Collections.sort(calendario); // metodo sort di Collections per poter ordinare le date presenti nel vettore 
 		//System.out.println(calendario);
-		for (Date d:calendario)
-			System.out.println(d);
+		//for (Date d:calendario)
+			//System.out.println(d);
+	//}
+	// metodo per estrarre le date(key), unirle in una lista e stamparle ordinate  
+	public void visualizzaPrenotazioni() {
+		 Set <Date> keyset= calendario.keySet();
+		 ArrayList <Date> dateordinate = new ArrayList <Date> (calendario.keySet ()); 
+		 Collections.sort(dateordinate);
+		 System.out.println (dateordinate);
 	}
 	}
 
