@@ -30,7 +30,9 @@ public class GestoreLocale {
 			//case 4:
 			//case 5:
 			//case 6:
-			//case 7:
+			case 7:
+				gestorePrenotazioni.visualizzaCliente();
+				break;
 			//case 8: commentati perchè non ancora implementate queste funzioni
 			default:
 				System.out.println("Funzione non ancora implementata");

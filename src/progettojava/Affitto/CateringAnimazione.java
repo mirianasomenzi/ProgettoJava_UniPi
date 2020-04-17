@@ -1,34 +1,52 @@
 package progettojava.Affitto;
 import java.util.Scanner;
+import java.util.Date;
 import  java.util.InputMismatchException;
 public class CateringAnimazione extends Catering {
-
-	public CateringAnimazione() {
-		// usare super per richiamare il costruttore della superclasse
-		
-	}
+	String tipoAnimazione; // creo variabile per salvare i tipi di animazione
 	
-	public void gestioneCateringAnimazione() { //tolto static e messa la lettera minuscola
-		System.out.println("Quanti bambini sono previsti?");
-		Scanner input= new Scanner (System.in);
-		super.bambini = input.nextInt(); // super.bambini perchè richiamo bambini dalla super classe Catering 
+	public CateringAnimazione(String nome, Date d) {
+		// usare super per richiamare il costruttore della superclasse
+		super (nome, d);
+		//System.out.println("Quanti bambini sono previsti?");
+		//super.bambini = input.nextInt(); // super.bambini perchè richiamo bambini dalla super classe Catering 
 		// aggiunto la domanda sul numero di bambini presenti essendo sia catering sia animazione 
-		
+		Scanner input= new Scanner (System.in);
 		System.out.println("Che tipo di animazione desideri?\n"
 				+ " 1 = organizzazione di giochi \n"
 				+ " 2 = spettacolo di magia \n"
 				+ " 3 = spettacolo di burattini \n"); // inserire errore 
 		try {
-			int SceltaAnimazione = input.nextInt();
-			if ((SceltaAnimazione <1) || (SceltaAnimazione > 3)) {
-			System.out.println ("Numero non valido"); 
-		    } else {
-		    	System.out.println ("Prenotazione effettuata!");
-		    }
+			int sceltaAnimazione = input.nextInt();
+			switch (sceltaAnimazione) {
+				case 1:
+					this.tipoAnimazione = "organizzazione di giochi"; // this perchè tipoAnimazione è dell'oggetto, ho salvato la
+					                                                  // scelta numero 1 nella variabile apposita
+					break;
+				case 2:
+					this.tipoAnimazione= "spettacolo di magia";
+					break;
+				case 3:
+					this.tipoAnimazione = "spettacolo di burattini";
+					break;
+				default:
+					System.out.println("Scelta non valida");
+			}
+			
+			//if ((SceltaAnimazione <1) || (SceltaAnimazione > 3)) {
+			//System.out.println ("Numero non valido"); 
+		    //} else {
+		    	//System.out.println ("Prenotazione effettuata!");
+		    //}
+			
 		} catch ( InputMismatchException e) {
 			input.nextLine();
 			System.out.println ("Valore non valido... \n" + "...ritenta!");
 			}
 			
 	}
-}	
+	}
+	
+
+		
+	

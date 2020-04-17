@@ -10,6 +10,9 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;//treeMap
 import java.util.Set;
+import java.util.Vector;
+
+import progettojava.Affitto.Affitto;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
 
@@ -22,57 +25,79 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	                                                       // modificabile solo dalla classe GestorePrenotazioni
 	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
 	// dalle date ( key) e valori (nomi)
-	public GestorePrenotazioni() {
+	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
 	
+	public GestorePrenotazioni() {
+		Locale.setDefault(Locale.ITALIAN); // settare data in italiano, DA RIVEDERE
 	}
 	  
 	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
 			Scanner input = new Scanner (System.in);	    
-			CateringAnimazione nuovocateringanimazione = new CateringAnimazione();
-			Catering nuovocatering = new Catering();
-			Locale.setDefault(Locale.ITALIAN); // settare data in italiano, DA RIVEDERE
-			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
-			//converto la stringa in un oggetto della classe Date
-			try {
+			try {  
+				System.out.println ("Inserire nominativo: ");
+				String nome = input.nextLine();	
+				// acquisizione stringa e controllo della stessa
+				System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
 				String stringaData = input.nextLine();
-				System.out.println ("Aggiungere nominativo: ");
-				String nome = input.nextLine();
 				DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
-				// questo metodo permette di fare controlli sulla stringa inserita prima di convertirla
 				data.setLenient(false);
 				Date d = data.parse(stringaData);
-			    
 			    if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
 			    	System.out.println("Data disponibile");
-			    	// metodo put per inserire d come key e nome come valore
+			    				
+			    	// associo il nome alla data 
 			    	calendario.put(d, nome);
-			    	
-			    	 if (calendario.containsKey(d)) {
-					    	System.out.println("Data prenotazione confermata!"); 
-			    	        System.out.println ("Scegli una forma di prenotazione: \n" 
-			    			 + " 1 = semplice affitto del locale \n"
-			    			 + " 2 = affitto locale + catering \n"
-			    			 + " 3 = affitto locale + catering + animazione \n");
-			    	 }
+
+	    	        System.out.println ("Scegli una forma di prenotazione: \n" 
+	    			 + " 1 = semplice affitto del locale \n"
+	    			 + " 2 = affitto locale + catering \n"
+	    			 + " 3 = affitto locale + catering + animazione \n");
+			    	 
+	    	        /* prenotazione unica con forme diverse, quindi prenotazione è una
+                     * variabile che include i vari tipi di prenotazione possibili
+                     */
+	    	         Affitto prenotazione = null; // creo variabile prenotazione di tipo affitto (superclasse)
 			    	 int sceltaPrenotazione = input.nextInt();
-			    	// while ( sceltaPrenotazione != 3) {
 			    		 switch (sceltaPrenotazione ) {
 			    		 case 1: 
+			    			 prenotazione = new Affitto (nome,d); //creo affitto passandogli come parametri il nome cliente e la data  	                                       
 			    			 System.out.println ("Prenotazione affitto effettuata!"); 
 			    			 break; 
 			    		 case 2: 
-			    			 nuovocatering.gestioneCatering (); // faccio riferimento a un metodo non statico per cui dopo aver
-			    			                                    // dichiarato l'oggetto alla riga 26/27 faccio oggetto.metodo();
+			    			 prenotazione = new Catering (nome,d);
+			    			 System.out.println("Prenotazione affitto con catering effettuata!");
 			    			 break;
 			    		 case 3 : 
-			    			 nuovocateringanimazione.gestioneCateringAnimazione();
+			    			 prenotazione = new CateringAnimazione (nome,d);
+			    			 System.out.println("Prenotazione affitto con catering e animazione effettuata!");
 			    			 break;
 			    		 default : System.out.println ("Valore errato"); 
 			    		 // inserire eccezione se inserisce valore non valido
-			    		 
 			    		 }
-			    } 			    
-			    else  
+			    		 
+			    		 /* esiste la persona nel registro?
+			    		  * 1a non esiste persona -> creare vettore nuovo, inserire la prenotazione appena creata e inserirlo in
+			    		  * registro
+			    		  * 1b esiste -> prendere prenotazione da registro, aggiungere prenotazione appena creata, reinserire in
+			    		  * registro
+			    		*/ 
+			    		if (!registro.containsKey(nome)) {
+			    			Vector <Affitto> prenotazioniCliente = new Vector <Affitto>();
+			    			prenotazioniCliente.add(prenotazione);
+			    			registro.put(nome, prenotazioniCliente);
+			    		} else {
+			    			//if (registro.containsKey(nome)) {
+			    			Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
+			    			prenotazioniEsistenti.add(prenotazione);
+			    			registro.replace(nome, prenotazioniEsistenti);
+			    			 
+			    			
+			
+			    			
+			    			}
+			    		
+			    		
+			    }else  
 			    	System.out.println ("Data occupata");   
 			}     
 		
@@ -82,19 +107,28 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 				System.out.println ("Ritenta...");
 			}
 		}
-	//public void visualizzaPrenotazioni () {
 	
-		//Collections.sort(calendario); // metodo sort di Collections per poter ordinare le date presenti nel vettore 
-		//System.out.println(calendario);
-		//for (Date d:calendario)
-			//System.out.println(d);
-	//}
 	// metodo per estrarre le date(key), unirle in una lista e stamparle ordinate  
 	public void visualizzaPrenotazioni() {
 		 Set <Date> keyset= calendario.keySet();
 		 ArrayList <Date> dateordinate = new ArrayList <Date> (calendario.keySet ()); 
 		 Collections.sort(dateordinate);
-		 System.out.println (dateordinate);
+		 for (Date d : dateordinate) // per ogni data d che sta dentro dateordinate
+				System.out.println(d);
 	}
+	
+	
+	public void visualizzaCliente () {
+		System.out.println("Inserisci cliente: ");
+		Scanner input = new Scanner (System.in);
+		String nome= input.nextLine();
+		
+		Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
+		for(Affitto prenotazione : prenotazioniEsistenti) {
+			System.out.println(prenotazione.getData());
+		}
 	}
+	
+}
+	
 
