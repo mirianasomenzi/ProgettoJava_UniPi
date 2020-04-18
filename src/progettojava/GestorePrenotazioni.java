@@ -89,14 +89,9 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    			//if (registro.containsKey(nome)) {
 			    			Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
 			    			prenotazioniEsistenti.add(prenotazione);
-			    			registro.replace(nome, prenotazioniEsistenti);
-			    			 
-			    			
-			
-			    			
-			    			}
-			    		
-			    		
+			    			registro.replace(nome, prenotazioniEsistenti);	
+			    			}		
+
 			    }else  
 			    	System.out.println ("Data occupata");   
 			}     
@@ -121,14 +116,26 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	public void visualizzaCliente () {
 		System.out.println("Inserisci cliente: ");
 		Scanner input = new Scanner (System.in);
-		String nome= input.nextLine();
-		
-		Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
+		String cliente= input.nextLine();
+		Vector <Affitto> prenotazioniEsistenti = registro.get(cliente);
 		for(Affitto prenotazione : prenotazioniEsistenti) {
+			//if (registro.containsKey(cliente)) {
 			System.out.println(prenotazione.getData());
-		}
+			//} else if (cliente.equals(cliente.substring(0))) {
+				//System.out.println(prenotazione.getData());
+			}
+			
+		
+			
+			
+			
+	/*inserisco stringa 1
+	 * - se stringa 1 = stringa presente in registro O sottostringa di nome -> stampa prenotazione
+	 * - se stringa 1 non presente in nome -> stampa nome non presente
+	*/
+			}
 	}
 	
-}
+
 	
 
