@@ -117,25 +117,30 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		System.out.println("Inserisci cliente: ");
 		Scanner input = new Scanner (System.in);
 		String cliente= input.nextLine();
-		Vector <Affitto> prenotazioniEsistenti = registro.get(cliente);
+		Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
+		if (prenotazioniEsistenti!= null) {
 		for(Affitto prenotazione : prenotazioniEsistenti) {
-			//if (registro.containsKey(cliente)) {
 			System.out.println(prenotazione.getData());
-			//} else if (cliente.equals(cliente.substring(0))) {
-				//System.out.println(prenotazione.getData());
 			}
-			
-		
-			
-			
-			
-	/*inserisco stringa 1
-	 * - se stringa 1 = stringa presente in registro O sottostringa di nome -> stampa prenotazione
-	 * - se stringa 1 non presente in nome -> stampa nome non presente
-	*/
-			}
+		}
+		}
+	public Vector <Affitto> cercaSubstringCliente (String cliente) {
+		// da questo metodo voglio ottenere il vettore delle prenotazioni
+		if (registro.containsKey(cliente)) { // primo caso, registro contiene cliente
+			return registro.get(cliente); //valore associato al cliente
+		} else {
+			Set <String> nomiRegistro = registro.keySet(); //prende tutte le chiavi, quindi i nomi, dal registro
+		    for (String nomeEsatto : nomiRegistro) {    // per ogni stringa nomeEsatto presente nel registro
+		    		if (nomeEsatto.contains(cliente)) { // se nomeEsatto contiene cliente
+		    			return registro.get(nomeEsatto); // ritorna valore associato al cliente 
+		    		}
+		    }
+		}
+		System.out.println("Cliente inesistente");
+		return null; //restituisce null quando non c'è corrispondenza
+		}
 	}
 	
-
+	
 	
 

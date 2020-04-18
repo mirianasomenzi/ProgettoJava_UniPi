@@ -10,7 +10,7 @@ public class Affitto {
 		this.data = d;
 	}
 
-	public String getData () {
+	public String getData () { //metodo che mi restituisce un valore di tipo string
 		return this.data.toString();
 		
 	}
