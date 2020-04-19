@@ -1,4 +1,5 @@
 package progettojava.Affitto;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -21,7 +22,8 @@ public class Catering extends Affitto {
 	}
 	 // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
 		public String toString () {
-			String string = "Data della prenotazione: "+this.data + "Numero di bambini: "+ this.bambini;
+			SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
+			String string = "Data prenotazione: "+dateFormat.format(this.data) +"\nNumero bambini: "+ this.bambini+"\n---";
 			return string;		
 		}
 }

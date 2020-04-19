@@ -27,10 +27,10 @@ public class GestoreLocale {
 				gestorePrenotazioni.visualizzaPrenotazioni(); // richiamo il metodo visualizzaPrenotazioni 
 				break;
 			case 3:
-				gestorePrenotazioni.stampaCatering(); 
+				gestorePrenotazioni.stampaCatering(true); 
 				break;
 			case 4:
-				gestorePrenotazioni.stampaCateringAnimazione();
+				gestorePrenotazioni.stampaCatering(false);
 				break;
 			//case 5:
 			case 6:

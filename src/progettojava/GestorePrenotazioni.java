@@ -20,10 +20,6 @@ import progettojava.Affitto.CateringAnimazione;
 public class GestorePrenotazioni { // creato una nuova classe dove poter gestire le prenotazioni (quindi le richieste che il prof fa
 	                               // nella consegna es. aggiungere prenotazione, eliminarla, visualizzare ecc) perchè facendo 
 	                               // riferimento a metodi non statici non potevano stare nel main che è static 
-	
-	//private Vector <Date> calendario = new Vector<Date> ();// vettore di date, cambiato di posizione perchè in questo modo è accessibile da
-	                                                    // tutti i metodi e non viene sovrascritto ogni volta, e private così è
-	                                                       // modificabile solo dalla classe GestorePrenotazioni
 	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
 	// dalle date ( key) e valori (nomi)
 	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
@@ -87,12 +83,10 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    			prenotazioniCliente.add(prenotazione);
 			    			registro.put(nome, prenotazioniCliente);
 			    		} else {
-			    			//if (registro.containsKey(nome)) {
 			    			Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
 			    			prenotazioniEsistenti.add(prenotazione);
 			    			registro.replace(nome, prenotazioniEsistenti);	
 			    			}		
-
 			    }else  
 			    	System.out.println ("Data occupata");   
 			}     
@@ -113,7 +107,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 				System.out.println(d);
 	}
 	
-	public void stampaCatering () {
+	public void stampaCatering (boolean stampaAncheCatering) {
 		//itero ogni entry (coppia chiave-valore) del registro 
 		for(Entry<String, Vector> entry : registro.entrySet()) {
 			// estraggo il vettore delle prenotazioni
@@ -121,26 +115,14 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			// itero il vettore delle prenotazioni (una persona può averne più di una)
 				for (Affitto prenotazione : prenotazioni) {
 					if (prenotazione instanceof CateringAnimazione) {
-						System.out.println("La seguente prenotazione è di tipo CateringAnimazione: " + prenotazione);	
-					} else if (prenotazione instanceof Catering) {
-						System.out.println("La seguente prenotazione è di tipo Catering: "+ prenotazione);						
+						System.out.println("Catering con Animazione: \n" + prenotazione);	
+					} else if (prenotazione instanceof Catering && stampaAncheCatering) { 
+						System.out.println("Catering: \n"+ prenotazione);						
 					}
 				}
 			
 		}
 	}
-	
-	public void stampaCateringAnimazione() {
-		for(Entry<String, Vector> entry : registro.entrySet()) {
-			Vector<Affitto> prenotazioni = entry.getValue();
-			for (Affitto prenotazione : prenotazioni) {
-				if (prenotazione instanceof CateringAnimazione) {
-					System.out.println("La seguente prenotazione è di tipo CateringAnimazione: " + prenotazione);
-				}
-			}
-		}
-	}
-	
 			
 	public void visualizzaCliente () {
 		System.out.println("Inserisci cliente: ");

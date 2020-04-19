@@ -1,5 +1,6 @@
 package progettojava.Affitto;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import  java.util.InputMismatchException;
 public class CateringAnimazione extends Catering {
@@ -8,8 +9,6 @@ public class CateringAnimazione extends Catering {
 	public CateringAnimazione(String nome, Date d) {
 		// usare super per richiamare il costruttore della superclasse
 		super (nome, d);
-		//System.out.println("Quanti bambini sono previsti?");
-		//super.bambini = input.nextInt(); // super.bambini perchè richiamo bambini dalla super classe Catering 
 		// aggiunto la domanda sul numero di bambini presenti essendo sia catering sia animazione 
 		Scanner input= new Scanner (System.in);
 		System.out.println("Che tipo di animazione desideri?\n"
@@ -31,9 +30,7 @@ public class CateringAnimazione extends Catering {
 					break;
 				default:
 					System.out.println("Scelta non valida");
-			}
-			
-			
+			}			
 		} catch ( InputMismatchException e) {
 			input.nextLine();
 			System.out.println ("Valore non valido... \n" + "...ritenta!");
@@ -41,8 +38,9 @@ public class CateringAnimazione extends Catering {
 		}
  // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
 	public String toString () {
-		String string = "Data della prenotazione: "+this.data + "Numero di bambini: "+ this.bambini + "Tipo di animazione: "+ this.tipoAnimazione;
-		return string;		
+		SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
+		String string = "Data prenotazione: "+dateFormat.format(this.data) + "\nNumero bambini: "+ this.bambini + "\nTipo animazione: "+ this.tipoAnimazione+"\n---";
+		return string;		 
 	}
 }
 	

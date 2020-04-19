@@ -1,10 +1,12 @@
 package progettojava.Affitto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Affitto {
 	protected String cliente; 
 	protected Date data;
+	private Object dateFormat;
 	public Affitto(String nome, Date d) {
 		this.cliente = nome; // associo il cliente al nome importato da gestorePrenotazione 
 		this.data = d;
@@ -16,7 +18,9 @@ public class Affitto {
 	}
 	 // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
 		public String toString () {
-			String string = "Data della prenotazione: "+this.data;
+			//ho cambiato il formato della data
+			SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
+			String string = "Data prenotazione: "+dateFormat.format(this.data)+"\n---";
 			return string;		
 		}
 }
