@@ -26,11 +26,13 @@ public class GestoreLocale {
 			case 2:
 				gestorePrenotazioni.visualizzaPrenotazioni(); // richiamo il metodo visualizzaPrenotazioni 
 				break;
-			//case 3:
+			case 3:
+				gestorePrenotazioni.stampaCatering(); 
+				break;
 			//case 4:
 			//case 5:
 			case 6:
-				gestorePrenotazioni.visualizzaCliente();
+				gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
 				break;
 			//case 7:
 			//case 8: commentati perchè non ancora implementate queste funzioni

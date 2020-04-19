@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.Scanner;
 //import java.util.Vector;
 import java.util.ArrayList;
@@ -112,6 +113,22 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 				System.out.println(d);
 	}
 	
+	public void stampaCatering () {
+		//itero ogni entry (coppia chiave-valore) del registro 
+		for(Entry<String, Vector> entry : registro.entrySet()) {
+			// estraggo il vettore delle prenotazioni
+			Vector<Affitto> prenotazioni = entry.getValue();
+			// itero il vettore delle prenotazioni (una persona può averne più di una)
+				for (Affitto prenotazione : prenotazioni) {
+					if (prenotazione instanceof CateringAnimazione) {
+						System.out.println("La seguente prenotazione è di tipo CateringAnimazione: " + prenotazione.getData());	
+					} else if (prenotazione instanceof Catering) {
+						System.out.println("La seguente prenotazione è di tipo Catering: "+ prenotazione.getData());						
+					}
+				}
+			
+		}
+	}
 	
 	public void visualizzaCliente () {
 		System.out.println("Inserisci cliente: ");
