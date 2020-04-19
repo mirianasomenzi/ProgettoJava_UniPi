@@ -14,6 +14,11 @@ public class Affitto {
 		return this.data.toString();
 		
 	}
+	 // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
+		public String toString () {
+			String string = "Data della prenotazione: "+this.data;
+			return string;		
+		}
 }
  // ho ricreato la classe Affitto in modo che anche l'affitto semplice venisse salvato da qualche parte e gli ho passato il parametro
 //nome  dal gestorePrenotazioni dove viene inserito così che venga salvato tutto 

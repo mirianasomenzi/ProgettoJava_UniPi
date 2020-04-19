@@ -121,15 +121,27 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			// itero il vettore delle prenotazioni (una persona può averne più di una)
 				for (Affitto prenotazione : prenotazioni) {
 					if (prenotazione instanceof CateringAnimazione) {
-						System.out.println("La seguente prenotazione è di tipo CateringAnimazione: " + prenotazione.getData());	
+						System.out.println("La seguente prenotazione è di tipo CateringAnimazione: " + prenotazione);	
 					} else if (prenotazione instanceof Catering) {
-						System.out.println("La seguente prenotazione è di tipo Catering: "+ prenotazione.getData());						
+						System.out.println("La seguente prenotazione è di tipo Catering: "+ prenotazione);						
 					}
 				}
 			
 		}
 	}
 	
+	public void stampaCateringAnimazione() {
+		for(Entry<String, Vector> entry : registro.entrySet()) {
+			Vector<Affitto> prenotazioni = entry.getValue();
+			for (Affitto prenotazione : prenotazioni) {
+				if (prenotazione instanceof CateringAnimazione) {
+					System.out.println("La seguente prenotazione è di tipo CateringAnimazione: " + prenotazione);
+				}
+			}
+		}
+	}
+	
+			
 	public void visualizzaCliente () {
 		System.out.println("Inserisci cliente: ");
 		Scanner input = new Scanner (System.in);
@@ -137,7 +149,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
 		if (prenotazioniEsistenti!= null) {
 		for(Affitto prenotazione : prenotazioniEsistenti) {
-			System.out.println(prenotazione.getData());
+			System.out.println(prenotazione);
 			}
 		}
 		}

@@ -19,6 +19,11 @@ public class Catering extends Affitto {
 		  }
 		
 	}
+	 // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
+		public String toString () {
+			String string = "Data della prenotazione: "+this.data + "Numero di bambini: "+ this.bambini;
+			return string;		
+		}
 }
 	
 

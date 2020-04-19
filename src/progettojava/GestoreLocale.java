@@ -29,7 +29,9 @@ public class GestoreLocale {
 			case 3:
 				gestorePrenotazioni.stampaCatering(); 
 				break;
-			//case 4:
+			case 4:
+				gestorePrenotazioni.stampaCateringAnimazione();
+				break;
 			//case 5:
 			case 6:
 				gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente

@@ -33,19 +33,18 @@ public class CateringAnimazione extends Catering {
 					System.out.println("Scelta non valida");
 			}
 			
-			//if ((SceltaAnimazione <1) || (SceltaAnimazione > 3)) {
-			//System.out.println ("Numero non valido"); 
-		    //} else {
-		    	//System.out.println ("Prenotazione effettuata!");
-		    //}
 			
 		} catch ( InputMismatchException e) {
 			input.nextLine();
 			System.out.println ("Valore non valido... \n" + "...ritenta!");
 			}
-			
+		}
+ // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
+	public String toString () {
+		String string = "Data della prenotazione: "+this.data + "Numero di bambini: "+ this.bambini + "Tipo di animazione: "+ this.tipoAnimazione;
+		return string;		
 	}
-	}
+}
 	
 
 		
