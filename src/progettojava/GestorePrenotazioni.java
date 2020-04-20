@@ -33,13 +33,14 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			try {  
 				System.out.println ("Inserire nominativo: ");
 				String nome = input.nextLine();	
+			
 				// acquisizione stringa e controllo della stessa
 				System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
 				String stringaData = input.nextLine();
 				DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
 				data.setLenient(false);
 				Date d = data.parse(stringaData);
-			    if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
+				if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
 			    	System.out.println("Data disponibile");
 			    				
 			    	// associo il nome alla data 
@@ -87,7 +88,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    			prenotazioniEsistenti.add(prenotazione);
 			    			registro.replace(nome, prenotazioniEsistenti);	
 			    			}		
-			    }else  
+			    } else  
 			    	System.out.println ("Data occupata");   
 			}     
 		
@@ -130,11 +131,11 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		String cliente= input.nextLine();
 		Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
 		if (prenotazioniEsistenti!= null) {
-		for(Affitto prenotazione : prenotazioniEsistenti) {
-			System.out.println(prenotazione);
+			for(Affitto prenotazione : prenotazioniEsistenti) {
+				System.out.println(prenotazione);
 			}
 		}
-		}
+	}
 	public Vector <Affitto> cercaSubstringCliente (String cliente) {
 		// da questo metodo voglio ottenere il vettore delle prenotazioni
 		if (registro.containsKey(cliente)) { // primo caso, registro contiene cliente

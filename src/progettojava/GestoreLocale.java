@@ -14,39 +14,50 @@ public class GestoreLocale {
 
 	public static void main(String[] args) {
 		Scanner input = new Scanner (System.in);
-		GestorePrenotazioni gestorePrenotazioni = new GestorePrenotazioni (); // creato oggetto gestorePrenotazioni
-		stampaMenu(); // stampare il menu 
-		try { // aggiunto il try catch
-			int scelta = input.nextInt(); //  acquisisco input
-		while (scelta !=8) {
-			switch (scelta) {
-			case 1:
-				gestorePrenotazioni.aggiungiPrenotazione(); //richiamo il metodo aggiungiPrenotazione che si trova in GestorePrenotazioni
-				break;
-			case 2:
-				gestorePrenotazioni.visualizzaPrenotazioni(); // richiamo il metodo visualizzaPrenotazioni 
-				break;
-			case 3:
-				gestorePrenotazioni.stampaCatering(true); 
-				break;
-			case 4:
-				gestorePrenotazioni.stampaCatering(false);
-				break;
-			//case 5:
-			case 6:
-				gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
-				break;
-			//case 7:
-			//case 8: commentati perchè non ancora implementate queste funzioni
-			default:
-				System.out.println("Funzione non ancora implementata");
+		boolean ok;
+		int scelta;
+		GestorePrenotazioni gestorePrenotazioni;
+		//stampaMenu(); // stampare il menu 
+		do {
+			gestorePrenotazioni = new GestorePrenotazioni (); // creato oggetto gestorePrenotazioni
+			stampaMenu();
+			ok = true;
+			try { // aggiunto il try catch
+				scelta = input.nextInt(); //  acquisisco input
+				while (scelta !=8) {
+					switch (scelta) {
+					    case 1:
+					    	gestorePrenotazioni.aggiungiPrenotazione(); //richiamo il metodo aggiungiPrenotazione che si trova in GestorePrenotazioni
+					    	break;
+					    case 2:
+					    	gestorePrenotazioni.visualizzaPrenotazioni(); // richiamo il metodo visualizzaPrenotazioni 
+					    	break;
+					    case 3:
+					    	gestorePrenotazioni.stampaCatering(true); 
+					    	break;
+					    case 4:
+					    	gestorePrenotazioni.stampaCatering(false);
+					    	break;
+					    //case 5:
+					    case 6:
+					    	gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
+					    	break;
+					    //case 7:
+					    //case 8: commentati perchè non ancora implementate queste funzioni
+					    default:
+					    	System.out.println("Funzione non ancora implementata");
 				// default da togliere quando avremo implementato tutte le funzioni
+					}
+					stampaMenu();
+					scelta = input.nextInt(); // prima di tornare nel while mi richiede cosa voglio fare stampando di nuovo il menu
+				}
+			} catch (InputMismatchException e) {
+				System.out.println("Valore non valido...");
+				input.nextLine();
+				System.out.println ("...ritenta!");
+				ok = false;
 			}
-		stampaMenu();
-		scelta = input.nextInt(); // prima di tornare nel while mi richiede cosa voglio fare stampando di nuovo il menu
-		}
-		  } catch (InputMismatchException e) {
-		  	}
+		} while (!ok);
 	}
 		
 	 // creazione menu del programma  

@@ -7,6 +7,7 @@ public class Affitto {
 	protected String cliente; 
 	protected Date data;
 	private Object dateFormat;
+	
 	public Affitto(String nome, Date d) {
 		this.cliente = nome; // associo il cliente al nome importato da gestorePrenotazione 
 		this.data = d;
@@ -20,7 +21,7 @@ public class Affitto {
 		public String toString () {
 			//ho cambiato il formato della data
 			SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
-			String string = "Data prenotazione: "+dateFormat.format(this.data)+"\n---";
+			String string = "Data prenotazione: "+ dateFormat.format(this.data)+"\n---";
 			return string;		
 		}
 }
