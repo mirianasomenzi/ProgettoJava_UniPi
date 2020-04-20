@@ -23,7 +23,9 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
 	// dalle date ( key) e valori (nomi)
 	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
+	private ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
 	Scanner input = new Scanner (System.in);
+	
 	public GestorePrenotazioni() {
 		
 		Locale.setDefault(Locale.ITALIAN); // settare data in italiano, DA RIVEDERE
@@ -152,18 +154,24 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		System.out.println("Cliente inesistente");
 		return null; //restituisce null quando non c'è corrispondenza
 		}
-	public void primaDataDisponibile ( ArrayList dateOrdinate){
-		System.out.println("Che giorno è oggi?");
-		String strDataOdierna = input.nextLine();
-		DateFormat dataOdierna = DateFormat.getDateInstance(DateFormat.SHORT);
-		dataOdierna.setLenient(false);
-		Date oggi = dataOdierna.parse(strDataOdierna);
-		Collections.sort(dateOrdinate);
-		if (dateOrdinate.contains(oggi))
-		for (int i = dateOrdinate.indexOf(oggi); i <dateOrdinate.size(); i++)
-			System.out.println (dateOrdinate.get(i));
-		else if (!dateOrdinate.contains(oggi))
-			System.out.println(oggi);
+	
+	public void primaDataDisponibile (){
+		try {
+			System.out.println("Che giorno è oggi?");
+			String strDataOdierna = input.nextLine();
+			DateFormat dataOdierna = DateFormat.getDateInstance(DateFormat.SHORT);
+			dataOdierna.setLenient(false);
+			Date oggi = dataOdierna.parse(strDataOdierna);
+			Collections.sort(this.dateOrdinate);
+			if (dateOrdinate.contains(oggi))
+			for (int i = dateOrdinate.indexOf(oggi); i <dateOrdinate.size(); i++)
+				System.out.println (dateOrdinate.get(i));
+			else if (!dateOrdinate.contains(oggi))
+				System.out.println(oggi);
+		} catch (ParseException e) {
+			
+		}
+		
 				
 		
 			

@@ -1,6 +1,7 @@
 package progettojava;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.InputMismatchException; 
@@ -38,9 +39,9 @@ public class GestoreLocale {
 					    case 4:
 					    	gestorePrenotazioni.stampaCatering(false);
 					    	break;
-					    //case 5:
-					    	//gestorePrenotazioni.primaDataDisponibile();
-					    	//break;
+					    case 5:
+						    gestorePrenotazioni.primaDataDisponibile();					
+					     break;
 					    case 6:
 					    	gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
 					    	break;
