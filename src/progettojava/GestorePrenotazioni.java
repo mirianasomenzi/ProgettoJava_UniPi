@@ -23,13 +23,14 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
 	// dalle date ( key) e valori (nomi)
 	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
-	
+	Scanner input = new Scanner (System.in);
 	public GestorePrenotazioni() {
+		
 		Locale.setDefault(Locale.ITALIAN); // settare data in italiano, DA RIVEDERE
 	}
 	  
 	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
-			Scanner input = new Scanner (System.in);	    
+				    
 			try {  
 				System.out.println ("Inserire nominativo: ");
 				String nome = input.nextLine();	
@@ -101,10 +102,10 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	
 	// metodo per estrarre le date(key), unirle in una lista e stamparle ordinate  
 	public void visualizzaPrenotazioni() {
-		 Set <Date> keyset= calendario.keySet();
-		 ArrayList <Date> dateordinate = new ArrayList <Date> (calendario.keySet ()); 
-		 Collections.sort(dateordinate);
-		 for (Date d : dateordinate) // per ogni data d che sta dentro dateordinate
+		 //Set <Date> keyset= calendario.keySet();
+		 ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
+		 Collections.sort(dateOrdinate);
+		 for (Date d : dateOrdinate) // per ogni data d che sta dentro dateordinate
 				System.out.println(d);
 	}
 	
@@ -151,6 +152,23 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		System.out.println("Cliente inesistente");
 		return null; //restituisce null quando non c'è corrispondenza
 		}
+	public void primaDataDisponibile ( ArrayList dateOrdinate){
+		System.out.println("Che giorno è oggi?");
+		String strDataOdierna = input.nextLine();
+		DateFormat dataOdierna = DateFormat.getDateInstance(DateFormat.SHORT);
+		dataOdierna.setLenient(false);
+		Date oggi = dataOdierna.parse(strDataOdierna);
+		Collections.sort(dateOrdinate);
+		if (dateOrdinate.contains(oggi))
+		for (int i = dateOrdinate.indexOf(oggi); i <dateOrdinate.size(); i++)
+			System.out.println (dateOrdinate.get(i));
+		else if (!dateOrdinate.contains(oggi))
+			System.out.println(oggi);
+				
+		
+			
+			
+	}
 	}
 	
 	

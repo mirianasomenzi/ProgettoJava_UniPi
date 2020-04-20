@@ -39,6 +39,8 @@ public class GestoreLocale {
 					    	gestorePrenotazioni.stampaCatering(false);
 					    	break;
 					    //case 5:
+					    	//gestorePrenotazioni.primaDataDisponibile();
+					    	//break;
 					    case 6:
 					    	gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
 					    	break;
