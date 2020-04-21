@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 //import java.util.Vector;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;//treeMap
 import java.util.Set;
 import java.util.Vector;
@@ -104,12 +105,12 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	
 	// metodo per estrarre le date(key), unirle in una lista e stamparle ordinate  
 	public void visualizzaPrenotazioni() {
-		 //Set <Date> keyset= calendario.keySet();
 		 ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
 		 Collections.sort(dateOrdinate);
 		 for (Date d : dateOrdinate) // per ogni data d che sta dentro dateordinate
 				System.out.println(d);
 	}
+	
 	
 	public void stampaCatering (boolean stampaAncheCatering) {
 		//itero ogni entry (coppia chiave-valore) del registro 
@@ -157,27 +158,44 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	
 	public void primaDataDisponibile (){
 		try {
-			System.out.println("Che giorno è oggi?");
+
+		    //Date oggi = Calendar.getInstance().getTime();
+		    System.out.println("Che giorno è oggi?");
 			String strDataOdierna = input.nextLine();
 			DateFormat dataOdierna = DateFormat.getDateInstance(DateFormat.SHORT);
 			dataOdierna.setLenient(false);
 			Date oggi = dataOdierna.parse(strDataOdierna);
-			Collections.sort(this.dateOrdinate);
-			if (dateOrdinate.contains(oggi))
-			for (int i = dateOrdinate.indexOf(oggi); i <dateOrdinate.size(); i++)
-				System.out.println (dateOrdinate.get(i));
-			else if (!dateOrdinate.contains(oggi))
-				System.out.println(oggi);
+		    Set <Date> insiemeDate = calendario.keySet();
+		    //for (Date d : insiemeDate) {
+		    	if (!insiemeDate.contains(oggi)) {
+		    		System.out.println("Prima data disponibile: "+ oggi);
+		    	} else 
+		    		System.out.println("errore!!!!!!!!!");
+		    //}
+		   
+			//for(Entry<String, Vector> entry : registro.entrySet()) { //itero ogni entry (coppia chiave-valore) del registro 
+				//Vector prenotazioni = entry.getValue();// // estraggo il vettore delle prenotazioni
+				//for (dataOdierna : prenotazioni) {
+					//System.out.println(oggi);
+			//Collections.sort(this.dateOrdinate);
+			//for (oggi : prenotazioni)
+			//if (dateOrdinate.contains(oggi))
+			//for (int i = dateOrdinate.indexOf(oggi); i <dateOrdinate.size(); i++)
+				//System.out.println (dateOrdinate.get(i));
+			//else if (!dateOrdinate.contains(oggi))
+				//System.out.println(oggi);
 		} catch (ParseException e) {
 			
 		}
+	}
+}
 		
 				
 		
 			
 			
-	}
-	}
+	
+	
 	
 	
 	

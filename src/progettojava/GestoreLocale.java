@@ -41,7 +41,7 @@ public class GestoreLocale {
 					    	break;
 					    case 5:
 						    gestorePrenotazioni.primaDataDisponibile();					
-					     break;
+					       break;
 					    case 6:
 					    	gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
 					    	break;
