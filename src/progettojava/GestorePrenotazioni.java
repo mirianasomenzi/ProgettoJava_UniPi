@@ -3,6 +3,7 @@ package progettojava;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map.Entry;
@@ -36,8 +37,8 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 				    
 			try {  
 				System.out.println ("Inserire nominativo: ");
+				Scanner input = new Scanner (System.in);
 				String nome = input.nextLine();	
-			
 				// acquisizione stringa e controllo della stessa
 				System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
 				String stringaData = input.nextLine();
@@ -91,7 +92,9 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    			Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
 			    			prenotazioniEsistenti.add(prenotazione);
 			    			registro.replace(nome, prenotazioniEsistenti);	
-			    			}		
+			    			}
+			    		
+			    		calendario.put(d, nome); // update del calendario 
 			    } else  
 			    	System.out.println ("Data occupata");   
 			}     
@@ -158,33 +161,25 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	
 	public void primaDataDisponibile (){
 		try {
-
-		    //Date oggi = Calendar.getInstance().getTime();
-		    System.out.println("Che giorno è oggi?");
-			String strDataOdierna = input.nextLine();
-			DateFormat dataOdierna = DateFormat.getDateInstance(DateFormat.SHORT);
-			dataOdierna.setLenient(false);
-			Date oggi = dataOdierna.parse(strDataOdierna);
-		    Set <Date> insiemeDate = calendario.keySet();
-		    //for (Date d : insiemeDate) {
-		    	if (!insiemeDate.contains(oggi)) {
-		    		System.out.println("Prima data disponibile: "+ oggi);
+			
+			Calendar c = Calendar.getInstance(); // calendar impostato al giorno di oggi
+		    Date giorno = c.getTime(); //oggetto di tipo data che salva il giorno di oggi del calendar
+			SimpleDateFormat convertitoreDataStringa = new SimpleDateFormat("dd/MM/yy");		
+	    	Set <Date> insiemeDate = calendario.keySet();
+	    	DateFormat convertitoreStringaData = DateFormat.getDateInstance(DateFormat.SHORT); 
+			convertitoreStringaData.setLenient(false);
+		    boolean trovato = false; //flag
+		    while (!trovato) {
+		    	String strGiornata = convertitoreDataStringa.format(c.getTime()); //creo oggetto stringa in formato dd/MM/yy della data
+		    	giorno = convertitoreStringaData.parse(strGiornata); //creo oggetto data partendo dalla stringa 
+		    	if (!insiemeDate.contains(giorno)) {
+		    		System.out.println("Prima data disponibile: "+ strGiornata);
+		    		trovato = true;	         
 		    	} else 
-		    		System.out.println("errore!!!!!!!!!");
-		    //}
-		   
-			//for(Entry<String, Vector> entry : registro.entrySet()) { //itero ogni entry (coppia chiave-valore) del registro 
-				//Vector prenotazioni = entry.getValue();// // estraggo il vettore delle prenotazioni
-				//for (dataOdierna : prenotazioni) {
-					//System.out.println(oggi);
-			//Collections.sort(this.dateOrdinate);
-			//for (oggi : prenotazioni)
-			//if (dateOrdinate.contains(oggi))
-			//for (int i = dateOrdinate.indexOf(oggi); i <dateOrdinate.size(); i++)
-				//System.out.println (dateOrdinate.get(i));
-			//else if (!dateOrdinate.contains(oggi))
-				//System.out.println(oggi);
+		    		c.add(Calendar.DATE, 1);  // dice al calendario di aggiungere un giorno
+		    }	
 		} catch (ParseException e) {
+			e.printStackTrace(); // dà la traccia dell'eccezione lanciata
 			
 		}
 	}
