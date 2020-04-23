@@ -25,7 +25,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
 	// dalle date ( key) e valori (nomi)
 	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
-	private ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
+	//private ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
 	Scanner input = new Scanner (System.in);
 	
 	public GestorePrenotazioni() {
@@ -34,24 +34,21 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	}
 	  
 	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
-				    
-			try {  
-				System.out.println ("Inserire nominativo: ");
-				Scanner input = new Scanner (System.in);
-				String nome = input.nextLine();	
+		try {
+			System.out.println ("Inserire nominativo: ");
+			Scanner input = new Scanner (System.in);
+			String nome = input.nextLine();	
 				// acquisizione stringa e controllo della stessa
-				System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
-				String stringaData = input.nextLine();
-				DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
-				data.setLenient(false);
-				Date d = data.parse(stringaData);
-				if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
-			    	System.out.println("Data disponibile");
-			    				
-			    	// associo il nome alla data 
-			    	calendario.put(d, nome);
-
-	    	        System.out.println ("Scegli una forma di prenotazione: \n" 
+			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
+			String stringaData = input.nextLine();
+			DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
+			data.setLenient(false);
+			Date d = data.parse(stringaData);
+			if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
+				System.out.println("Data disponibile");
+					// associo il nome alla data 
+				calendario.put(d, nome);
+				System.out.println ("Scegli una forma di prenotazione: \n" 
 	    			 + " 1 = semplice affitto del locale \n"
 	    			 + " 2 = affitto locale + catering \n"
 	    			 + " 3 = affitto locale + catering + animazione \n");
@@ -59,9 +56,10 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	    	        /* prenotazione unica con forme diverse, quindi prenotazione è una
                      * variabile che include i vari tipi di prenotazione possibili
                      */
-	    	         Affitto prenotazione = null; // creo variabile prenotazione di tipo affitto (superclasse)
-			    	 int sceltaPrenotazione = input.nextInt();
-			    		 switch (sceltaPrenotazione ) {
+				Affitto prenotazione = null; // creo variabile prenotazione di tipo affitto (superclasse)
+				
+				int sceltaPrenotazione = input.nextInt();
+				switch (sceltaPrenotazione ) {
 			    		 case 1: 
 			    			 prenotazione = new Affitto (nome,d); //creo affitto passandogli come parametri il nome cliente e la data  	                                       
 			    			 System.out.println ("Prenotazione affitto effettuata!"); 
@@ -77,6 +75,7 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			    		 default : System.out.println ("Valore errato"); 
 			    		 // inserire eccezione se inserisce valore non valido
 			    		 }
+				
 			    		 
 			    		 /* esiste la persona nel registro?
 			    		  * 1a non esiste persona -> creare vettore nuovo, inserire la prenotazione appena creata e inserirlo in
@@ -101,17 +100,23 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		
 			catch (ParseException  e) {
 				System.out.println ("Formato data non valido");
-				input.nextLine();
+				//input.nextLine();
 				System.out.println ("Ritenta...");
 			}
 		}
 	
 	// metodo per estrarre le date(key), unirle in una lista e stamparle ordinate  
 	public void visualizzaPrenotazioni() {
-		 ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
+		 Vector <Date> dateOrdinate = new Vector <Date> (calendario.keySet ()); 
+		 SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
 		 Collections.sort(dateOrdinate);
-		 for (Date d : dateOrdinate) // per ogni data d che sta dentro dateordinate
-				System.out.println(d);
+		 if (!dateOrdinate.isEmpty()) {
+			System.out.println ("Ecco l'elenco delle prenotazioni in ordine di data: ");
+			for (Date d : dateOrdinate) {// per ogni data d che sta dentro dateordinate
+				 System.out.println(dateFormat.format(d));
+			}
+		 } else 
+			 System.out.println ("Non sono ancora presenti prenotazioni!");
 	}
 	
 	
@@ -133,31 +138,36 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 	}
 	
 	public void eliminaPrenotazione() {
-		try {
-		System.out.println ("Quale prenotazione vuoi eliminare?");
-		String strData = input.nextLine();
-		DateFormat convertitoreStringaData= DateFormat.getDateInstance(DateFormat.SHORT);
-		convertitoreStringaData.setLenient(false);
-		Date dataEliminata = convertitoreStringaData.parse(strData);
-		Set <Date> insiemeDate = calendario.keySet();
-		if (calendario.containsKey(dataEliminata)) {
-			String nome = calendario.get(dataEliminata); // prendo anche nome così ho la key per registro
-			Vector<Affitto> prenotazioni = registro.get(nome); // estraggo il vettore delle prenotazioni
-				for (Affitto prenotazione: prenotazioni)
-					if (prenotazione.getDate().equals(dataEliminata)) {// prima esegue prenotazione.getDate e col contenuto ossia una data fa il confronto con quella da eliminare
-						prenotazioni.remove(prenotazione);
-						registro.replace(nome, prenotazioni);
-						calendario.remove(dataEliminata);
-						System.out.println ("Data eliminata!");
-						return;
-			}
-		
-		} else 
-			System.out.println ("Data non presente");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}	
-			
+		boolean ok = true;
+		do {
+			System.out.println ("Quale prenotazione vuoi eliminare?(Inserisci data formato dd/mm/aa");
+			ok = true;
+			try {
+				String strData = input.nextLine();
+				DateFormat convertitoreStringaData= DateFormat.getDateInstance(DateFormat.SHORT);
+				convertitoreStringaData.setLenient(false);
+				Date dataEliminata = convertitoreStringaData.parse(strData);
+				Set <Date> insiemeDate = calendario.keySet();
+				if (calendario.containsKey(dataEliminata)) {
+					String nome = calendario.get(dataEliminata); // prendo anche nome così ho la key per registro
+					Vector<Affitto> prenotazioni = registro.get(nome); // estraggo il vettore delle prenotazioni
+					for (Affitto prenotazione: prenotazioni) {
+						if (prenotazione.getDate().equals(dataEliminata)) {// prima esegue prenotazione.getDate e col contenuto ossia una data fa il confronto con quella da eliminare
+							prenotazioni.remove(prenotazione);
+							registro.replace(nome, prenotazioni);
+							calendario.remove(dataEliminata);
+							System.out.println ("Data eliminata!");
+							return;
+						}	
+					}
+				} else 
+					System.out.println ("Data non presente!");
+			} catch (ParseException e) {
+			System.out.println ("Formato data non valido!\n" + "Ritenta...");
+			//input.nextLine();
+			ok = false;
+			}	
+		} while	(!ok);	
 	}
 		
 		
