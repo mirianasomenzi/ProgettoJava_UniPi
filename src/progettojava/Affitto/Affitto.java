@@ -17,6 +17,12 @@ public class Affitto {
 		return this.data.toString();
 		
 	}
+	
+	public Date getDate () {
+		return this.data;
+	}
+	
+	
 	 // metodo per stampare i dati aggiuntivi del tipo di prenotazione	
 		public String toString () {
 			//ho cambiato il formato della data

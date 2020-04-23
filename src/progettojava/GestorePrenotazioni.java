@@ -140,21 +140,16 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 		convertitoreStringaData.setLenient(false);
 		Date dataEliminata = convertitoreStringaData.parse(strData);
 		Set <Date> insiemeDate = calendario.keySet();
-		
-		//String nomeEliminare = input.nextLine();
 		if (calendario.containsKey(dataEliminata)) {
-		//itero ogni entry (coppia chiave-valore) del registro 
-		//for (Affitto prenotazione : prenotazioni) 
-			calendario.remove(dataEliminata);
-			for(Entry<String, Vector> entry : registro.entrySet()) {
-				// estraggo il vettore delle prenotazioni
-				Vector<Affitto> prenotazioni = entry.getValue();
+			String nome = calendario.get(dataEliminata); // prendo anche nome così ho la key per registro
+			Vector<Affitto> prenotazioni = registro.get(nome); // estraggo il vettore delle prenotazioni
 				for (Affitto prenotazione: prenotazioni)
-					//if (prenotazione instanceof prenotazioni)
-					if (prenotazioni.contains(dataEliminata))
-						registro.remove(prenotazione);
-				//registro.put(nome, prenotazioni);
-			System.out.println ("Data eliminata!");
+					if (prenotazione.getDate().equals(dataEliminata)) {// prima esegue prenotazione.getDate e col contenuto ossia una data fa il confronto con quella da eliminare
+						prenotazioni.remove(prenotazione);
+						registro.replace(nome, prenotazioni);
+						calendario.remove(dataEliminata);
+						System.out.println ("Data eliminata!");
+						return;
 			}
 		
 		} else 
