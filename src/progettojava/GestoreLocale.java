@@ -45,7 +45,9 @@ public class GestoreLocale {
 					    case 6:
 					    	gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
 					    	break;
-					    //case 7:
+					    case 7:
+					    	gestorePrenotazioni.eliminaPrenotazione();
+					    	break;
 					    //case 8: commentati perchè non ancora implementate queste funzioni
 					    default:
 					    	System.out.println("Funzione non ancora implementata");

@@ -131,10 +131,46 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			
 		}
 	}
+	
+	public void eliminaPrenotazione() {
+		try {
+		System.out.println ("Quale prenotazione vuoi eliminare?");
+		String strData = input.nextLine();
+		DateFormat convertitoreStringaData= DateFormat.getDateInstance(DateFormat.SHORT);
+		convertitoreStringaData.setLenient(false);
+		Date dataEliminata = convertitoreStringaData.parse(strData);
+		Set <Date> insiemeDate = calendario.keySet();
+		
+		//String nomeEliminare = input.nextLine();
+		if (calendario.containsKey(dataEliminata)) {
+		//itero ogni entry (coppia chiave-valore) del registro 
+		//for (Affitto prenotazione : prenotazioni) 
+			calendario.remove(dataEliminata);
+			for(Entry<String, Vector> entry : registro.entrySet()) {
+				// estraggo il vettore delle prenotazioni
+				Vector<Affitto> prenotazioni = entry.getValue();
+				for (Affitto prenotazione: prenotazioni)
+					//if (prenotazione instanceof prenotazioni)
+					if (prenotazioni.contains(dataEliminata))
+						registro.remove(prenotazione);
+				//registro.put(nome, prenotazioni);
+			System.out.println ("Data eliminata!");
+			}
+		
+		} else 
+			System.out.println ("Data non presente");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}	
+			
+	}
+		
+		
+	
 			
 	public void visualizzaCliente () {
 		System.out.println("Inserisci cliente: ");
-		Scanner input = new Scanner (System.in);
+		//Scanner input = new Scanner (System.in);
 		String cliente= input.nextLine();
 		Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
 		if (prenotazioniEsistenti!= null) {
