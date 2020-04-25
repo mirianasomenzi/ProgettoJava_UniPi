@@ -1,5 +1,6 @@
 package progettojava;
 
+import java.io.*;
 import java.text.DateFormat;
 import java.util.Collections;
 import java.text.ParseException;
@@ -8,20 +9,18 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Scanner;
-//import java.util.Vector;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;//treeMap
+import java.util.HashMap;
 import java.util.Set;
 import java.util.Vector;
-
 import progettojava.Affitto.Affitto;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
 
-public class GestorePrenotazioni { // creato una nuova classe dove poter gestire le prenotazioni (quindi le richieste che il prof fa
-	                               // nella consegna es. aggiungere prenotazione, eliminarla, visualizzare ecc) perchè facendo 
-	                               // riferimento a metodi non statici non potevano stare nel main che è static 
+public class GestorePrenotazioni  implements Serializable { // creato una nuova classe dove poter gestire le prenotazioni (quindi le richieste che il prof fa
+	static final long serialVersionUID = 1;                 // nella consegna es. aggiungere prenotazione, eliminarla, visualizzare ecc) perchè facendo 
+	                                                       // riferimento a metodi non statici non potevano stare nel main che è static 
 	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
 	// dalle date ( key) e valori (nomi)
 	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
@@ -224,7 +223,42 @@ public class GestorePrenotazioni { // creato una nuova classe dove poter gestire
 			
 		}
 	}
-}
+	
+	public void salvaPrenotazioni () {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream ( new BufferedOutputStream( new FileOutputStream("prenotazioni.dat")));
+			out.writeObject(calendario);
+			out.writeObject(registro);
+			out.close();	
+			
+			
+		} catch (IOException e) {
+			System.out.println ("Errore di I/O");
+			System.out.println(e);
+		}
+		System.out.println("Prenotazioni salvate!");
+		}
+	
+	public void importaPrenotazioni () {
+		HashMap <Date,String> h2 = null;
+		HashMap <String, Vector> h3 = null;
+		try {
+			ObjectInputStream in = new ObjectInputStream ( new BufferedInputStream ( new FileInputStream("prenotazioni.dat")));
+			h2 = (HashMap) in.readObject();
+			h3 = (HashMap) in.readObject();
+			in.close();
+		} catch (ClassNotFoundException e) {
+			System.out.println("PROBLEMA (manca oggetto nel file)");
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println("ERRORE di I/O");
+			System.out.println(e);
+		}
+		System.out.println(h3);
+		}
+		
+	}
+
 		
 				
 		

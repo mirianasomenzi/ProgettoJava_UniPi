@@ -1,9 +1,12 @@
 package progettojava.Affitto;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Affitto {
+public class Affitto implements Serializable {
+		static final long serialVersionUID = 1;
+		
 	protected String cliente; 
 	protected Date data;
 	private Object dateFormat;

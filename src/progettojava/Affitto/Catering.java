@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class Catering extends Affitto {
 	protected int bambini; // cambiato da private a protected così la sottoclasse CateringAnimazione può accedere
     //costruttore

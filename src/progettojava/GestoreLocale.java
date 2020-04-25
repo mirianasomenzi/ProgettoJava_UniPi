@@ -24,9 +24,9 @@ public class GestoreLocale {
 			stampaMenu();
 			ok = true;
 			try { // aggiunto il try catch
-				scelta = input.nextInt(); //  acquisisco input
-				while (scelta !=8) {
-					switch (scelta) {
+				scelta = input.nextInt(); //  acquisisco input	 
+				while (scelta !=10)	{
+				switch (scelta) {
 					    case 1:
 					    	gestorePrenotazioni.aggiungiPrenotazione(); //richiamo il metodo aggiungiPrenotazione che si trova in GestorePrenotazioni
 					    	break;
@@ -48,15 +48,27 @@ public class GestoreLocale {
 					    case 7:
 					    	gestorePrenotazioni.eliminaPrenotazione();
 					    	break;
-					    //case 8: commentati perchè non ancora implementate queste funzioni
+					    case 8:
+					    	gestorePrenotazioni.salvaPrenotazioni();
+					    	break;
+					    case 9: 
+					    	gestorePrenotazioni.importaPrenotazioni();
+					    	break;
+					    case 10:
+					    	System.out.println("Hai scelto di uscire dal programma, alla prossima!");
+					    	break;
 					    default:
 					    	System.out.println("Funzione non ancora implementata");
 				// default da togliere quando avremo implementato tutte le funzioni
+					
 					}
+					
 					stampaMenu();
 					scelta = input.nextInt(); // prima di tornare nel while mi richiede cosa voglio fare stampando di nuovo il menu
 				}
-			} catch (InputMismatchException e) {
+			}
+			
+			    catch (InputMismatchException e) {
 				System.out.println("Valore non valido...");
 				input.nextLine();
 				System.out.println ("...ritenta!");
@@ -76,7 +88,9 @@ public class GestoreLocale {
 				+ "5 = visualizzare prima data disponibile a partire dal giorno corrente \n"
 				+ "6 = visualizzare prenotazioni effettuate da cliente selezionato \n"
 				+ "7 = eliminare prenotazioni \n"
-				+ "8 = esci \n");
+				+ "8 = salvare prenotazioni \n"
+				+ "9 = importare prenotazioni salvate \n"
+				+ "10 = esci \n");
 		System.out.println("Inserisci numero : ");
 		
 	}
