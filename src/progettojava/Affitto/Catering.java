@@ -1,25 +1,23 @@
 package progettojava.Affitto;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
+import java.util.*;
+//classe contenente la prenotazione del locale con opzione catering 
+//Catering è sottoclasse della classe Affitto
 public class Catering extends Affitto {
-	protected int bambini; // cambiato da private a protected così la sottoclasse CateringAnimazione può accedere
+	//protected cosicchè la sottoclasse CateringAnimazione possa accedere alla variabile 
+	protected int bambini; 
     //costruttore
-	public Catering (String nome, Date d) { // passo string nome da GestorePrenotazioni al costruttore
+	public Catering (String nome, Date d) { 
+		//richiamo il metodo della superclasse Affitto per salvare le informazioni relative alla prenotazione 
 		super(nome, d);
-		// ho richiamato il metodo della superclasse Affitto per salvare il nome
 		boolean ok;
 		do {
 			System.out.println ("Quanti bambini sono previsti?");
 			Scanner input= new Scanner (System.in);
 			ok = true;
 			try {
-				this.bambini = input.nextInt(); // this. perchè faccio riferimento alla variabile dell'oggetto e, in questo modo, salvo 
-			
-			                                // il numero di bambini, sennò andava perso
-			   
+				//utilizzato this. perchè facciamo riferimento alla variabile dell'oggetto in modo da salvare anche il n. di bambini
+				this.bambini = input.nextInt(); 
 		    }
 			catch (InputMismatchException e) {
 				System.out.println ("Valore non valido...");

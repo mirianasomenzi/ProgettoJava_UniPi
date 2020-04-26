@@ -1,15 +1,14 @@
 package progettojava.Affitto;
-import java.util.Scanner;
+import java.util.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import  java.util.InputMismatchException;
+//classe contenente la prenotazione del locale con opzione catering e animazione
+// CateringAnimazione sottoclasse della classe Catering
 public class CateringAnimazione extends Catering {
-	String tipoAnimazione; // creo variabile per salvare i tipi di animazione
-	
+	//creazione variabile per salvare i tipi di animazione
+	String tipoAnimazione; 
+	//costruttore
 	public CateringAnimazione(String nome, Date d) {
-		// usare super per richiamare il costruttore della superclasse
 		super (nome, d);
-		// aggiunto la domanda sul numero di bambini presenti essendo sia catering sia animazione 
 		Scanner input= new Scanner (System.in);
 		int sceltaAnimazione;
 		boolean ok;
@@ -24,8 +23,9 @@ public class CateringAnimazione extends Catering {
 				sceltaAnimazione = input.nextInt();
 				switch (sceltaAnimazione) {
 				    case 1:
-				    	this.tipoAnimazione = "organizzazione di giochi"; // this perchè tipoAnimazione è dell'oggetto, ho salvato la
-					                                                  // scelta numero 1 nella variabile apposita
+				    	//utilizzato this. in modo da salvare le scelte nella variabile apposita
+				    	//utilizzo di this. perchè tipoAnimazione è dell'oggetto 
+				    	this.tipoAnimazione = "organizzazione di giochi"; 
 				    	break;
 				    case 2:
 				    	this.tipoAnimazione= "spettacolo di magia";

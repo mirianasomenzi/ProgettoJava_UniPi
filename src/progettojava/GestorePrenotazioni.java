@@ -1,66 +1,54 @@
 package progettojava;
-
 import java.io.*;
+import java.util.*;
+import java.util.Map.Entry;
 import java.text.DateFormat;
-import java.util.Collections;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map.Entry;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Vector;
 import progettojava.Affitto.Affitto;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
-
-public class GestorePrenotazioni  implements Serializable { // creato una nuova classe dove poter gestire le prenotazioni (quindi le richieste che il prof fa
-	static final long serialVersionUID = 1;                 // nella consegna es. aggiungere prenotazione, eliminarla, visualizzare ecc) perchè facendo 
-	                                                       // riferimento a metodi non statici non potevano stare nel main che è static 
-	private HashMap <Date, String > calendario = new HashMap <Date, String> (); // usato HashMap per avere un dizionario composto da 
-	// dalle date ( key) e valori (nomi)
+// classe per la gestione delle prenotazioni 
+// classe che implementa serializable per la serializzazione
+public class GestorePrenotazioni  implements Serializable { 
+	static final long serialVersionUID = 1; 
+	//HashMap creato per avere un dizionario composto dalle date (come key) e dai nomi ( come valori)
+	private HashMap <Date, String > calendario = new HashMap <Date, String> ();  
+	//HashMap creato per avere un dizionario di prenotazioni (come valori) associate al cliente (come key)
 	private HashMap <String, Vector> registro = new HashMap <String, Vector> ();
-	//private ArrayList <Date> dateOrdinate = new ArrayList <Date> (calendario.keySet ()); 
-	Scanner input = new Scanner (System.in);
 	
-	public GestorePrenotazioni() {
-		
-		Locale.setDefault(Locale.ITALIAN); // settare data in italiano, DA RIVEDERE
-	}
-	  
-	public void aggiungiPrenotazione () { // non static perchè fa riferimento a metodi non statici es. il calendario che cambia
+	//costruttore di default 
+
+	// metodo per aggiungere una prenotazione
+	public void aggiungiPrenotazione () { 
 		try {
 			System.out.println ("Inserire nominativo: ");
 			Scanner input = new Scanner (System.in);
 			String nome = input.nextLine();	
-				// acquisizione stringa e controllo della stessa
 			System.out.println("In che giorno vuoi organizzare il compleanno? (inserisci data gg/mm/aa) ");
 			String stringaData = input.nextLine();
+			//scelta del formato della data
 			DateFormat data = DateFormat.getDateInstance(DateFormat.SHORT);
+			//per controllare la validità delle date
 			data.setLenient(false);
+			//per convertire la stringa in input in oggetto di tipo Date
 			Date d = data.parse(stringaData);
-			if (!calendario.containsKey(d)) { // se il calendario non contiene la data selezionata
+			//se il calendario non contiene la data selezionata
+			if (!calendario.containsKey(d)) { 
 				System.out.println("Data disponibile");
-					// associo il nome alla data 
+				// associo il nome alla data 
 				calendario.put(d, nome);
 				System.out.println ("Scegli una forma di prenotazione: \n" 
 	    			 + " 1 = semplice affitto del locale \n"
 	    			 + " 2 = affitto locale + catering \n"
 	    			 + " 3 = affitto locale + catering + animazione \n");
-			    	 
-	    	        /* prenotazione unica con forme diverse, quindi prenotazione è una
-                     * variabile che include i vari tipi di prenotazione possibili
-                     */
-				Affitto prenotazione = null; // creo variabile prenotazione di tipo affitto (superclasse)
-				
+			    	
+                //variabile prenotazione di tipo affitto che include le possibili prenotazioni    
+				Affitto prenotazione = null; 
 				int sceltaPrenotazione = input.nextInt();
 				switch (sceltaPrenotazione ) {
 			    		 case 1: 
-			    			 prenotazione = new Affitto (nome,d); //creo affitto passandogli come parametri il nome cliente e la data  	                                       
+			    			 prenotazione = new Affitto (nome,d);  	                                       
 			    			 System.out.println ("Prenotazione affitto effettuata!"); 
 			    			 break; 
 			    		 case 2: 
@@ -72,27 +60,25 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 			    			 System.out.println("Prenotazione affitto con catering e animazione effettuata!");
 			    			 break;
 			    		 default : System.out.println ("Valore errato"); 
-			    		 // inserire eccezione se inserisce valore non valido
 			    		 }
-				
-			    		 
-			    		 /* esiste la persona nel registro?
-			    		  * 1a non esiste persona -> creare vettore nuovo, inserire la prenotazione appena creata e inserirlo in
-			    		  * registro
-			    		  * 1b esiste -> prendere prenotazione da registro, aggiungere prenotazione appena creata, reinserire in
-			    		  * registro
-			    		*/ 
+		
+				        //se la persona non è presente nel registro
 			    		if (!registro.containsKey(nome)) {
+			    			//creazione nuovo vettore dove inserire la prenotazione appena creata
 			    			Vector <Affitto> prenotazioniCliente = new Vector <Affitto>();
 			    			prenotazioniCliente.add(prenotazione);
+			    			//inserire prenotazione appena creata in registro associandola al nome
 			    			registro.put(nome, prenotazioniCliente);
 			    		} else {
+			    			//se la persona è già presente, prendere la prenotazione a lei associata dal registro
 			    			Vector <Affitto> prenotazioniEsistenti = registro.get(nome);
+			    			//aggiungere la prenotazione appena creata
 			    			prenotazioniEsistenti.add(prenotazione);
+			    			// reinserire la prenotazione modificata nel registro
 			    			registro.replace(nome, prenotazioniEsistenti);	
 			    			}
-			    		
-			    		calendario.put(d, nome); // update del calendario 
+			    		//update anche dell'HashMap calendario
+			    		calendario.put(d, nome); 
 			    } else  
 			    	System.out.println ("Data occupata");   
 			}     
@@ -104,21 +90,22 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 			}
 		}
 	
-	// metodo per estrarre le date(key), unirle in una lista e stamparle ordinate  
+	// metodo per visualizzare in maniera ordinata le prenotazioni  
 	public void visualizzaPrenotazioni() {
+		//estrarre le date (key) da calendario e inserirle in un vettore di tipo Date 
 		 Vector <Date> dateOrdinate = new Vector <Date> (calendario.keySet ()); 
 		 SimpleDateFormat dateFormat = new SimpleDateFormat ("dd/MM/yyyy");
+		//ordinare le date 
 		 Collections.sort(dateOrdinate);
 		 if (!dateOrdinate.isEmpty()) {
 			System.out.println ("Ecco l'elenco delle prenotazioni in ordine di data: ");
-			for (Date d : dateOrdinate) {// per ogni data d che sta dentro dateordinate
+			for (Date d : dateOrdinate) {
 				 System.out.println(dateFormat.format(d));
 			}
 		 } else 
 			 System.out.println ("Non sono ancora presenti prenotazioni!");
 	}
-	
-	
+	// metodo per stampare le prenotazioni di tipo Catering e CateringAnimazione
 	public void stampaCatering (boolean stampaAncheCatering) {
 		//itero ogni entry (coppia chiave-valore) del registro 
 		for(Entry<String, Vector> entry : registro.entrySet()) {
@@ -130,14 +117,17 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 						System.out.println("Catering con Animazione: \n" + prenotazione);	
 					} else if (prenotazione instanceof Catering && stampaAncheCatering) { 
 						System.out.println("Catering: \n"+ prenotazione);						
+					//} else if 
+						//System.out.println("Non sono ancora presenti prenotazioni di questo tipo");
 					}
-				}
+					}
 			
 		}
 	}
-	
+	//metodo per eliminare una prenotazione
 	public void eliminaPrenotazione() {
 		boolean ok = true;
+		Scanner input = new Scanner (System.in);
 		do {
 			System.out.println ("Quale prenotazione vuoi eliminare?(Inserisci data formato dd/mm/aa");
 			ok = true;
@@ -148,12 +138,16 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 				Date dataEliminata = convertitoreStringaData.parse(strData);
 				Set <Date> insiemeDate = calendario.keySet();
 				if (calendario.containsKey(dataEliminata)) {
-					String nome = calendario.get(dataEliminata); // prendo anche nome così ho la key per registro
-					Vector<Affitto> prenotazioni = registro.get(nome); // estraggo il vettore delle prenotazioni
+					//prendo anche il nome così da avere la key per l'hashmap registro
+					String nome = calendario.get(dataEliminata); 
+					//estraggo il vettore delle prenotazioni da registo
+					Vector<Affitto> prenotazioni = registro.get(nome); 
 					for (Affitto prenotazione: prenotazioni) {
-						if (prenotazione.getDate().equals(dataEliminata)) {// prima esegue prenotazione.getDate e col contenuto ossia una data fa il confronto con quella da eliminare
+						//prima viene eseguito .getDate e confronta la data ottenuta con la data da eliminare 
+						if (prenotazione.getDate().equals(dataEliminata)) {
 							prenotazioni.remove(prenotazione);
 							registro.replace(nome, prenotazioni);
+							//rimuove la data anche da calendario
 							calendario.remove(dataEliminata);
 							System.out.println ("Data eliminata!");
 							return;
@@ -163,19 +157,16 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 					System.out.println ("Data non presente!");
 			} catch (ParseException e) {
 			System.out.println ("Formato data non valido!\n" + "Ritenta...");
-			//input.nextLine();
 			ok = false;
 			}	
 		} while	(!ok);	
 	}
-		
-		
-	
-			
+    // metodo per visualizzare la prenotazione partendo dal nome del cliente
 	public void visualizzaCliente () {
 		System.out.println("Inserisci cliente: ");
-		//Scanner input = new Scanner (System.in);
+		Scanner input = new Scanner (System.in);
 		String cliente= input.nextLine();
+		// richiamiamo il metodo cercaSubstringCliente
 		Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
 		if (prenotazioniEsistenti!= null) {
 			for(Affitto prenotazione : prenotazioniEsistenti) {
@@ -183,67 +174,74 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 			}
 		}
 	}
+	//metodo per visualizzare le prenotazioni partendo da una porzione di nome del cliente
 	public Vector <Affitto> cercaSubstringCliente (String cliente) {
-		// da questo metodo voglio ottenere il vettore delle prenotazioni
-		if (registro.containsKey(cliente)) { // primo caso, registro contiene cliente
-			return registro.get(cliente); //valore associato al cliente
+		//se il registro contiene cliente
+		if (registro.containsKey(cliente)) { 
+            //prendo valore associato al cliente
+			return registro.get(cliente); 
 		} else {
-			Set <String> nomiRegistro = registro.keySet(); //prende tutte le chiavi, quindi i nomi, dal registro
-		    for (String nomeEsatto : nomiRegistro) {    // per ogni stringa nomeEsatto presente nel registro
-		    		if (nomeEsatto.contains(cliente)) { // se nomeEsatto contiene cliente
-		    			return registro.get(nomeEsatto); // ritorna valore associato al cliente 
+			//se registro non contiene cliente prendo tutti i nomi (key)
+			Set <String> nomiRegistro = registro.keySet(); 
+			//per ogni stringa nomeEsatto presente in registro
+		    for (String nomeEsatto : nomiRegistro) { 
+		    	//se nomeEsatto contiene cliente
+		    		if (nomeEsatto.contains(cliente)) { 
+		    			//ritorna valore associato al cliente 
+		    			return registro.get(nomeEsatto); 
 		    		}
 		    }
 		}
 		System.out.println("Cliente inesistente");
-		return null; //restituisce null quando non c'è corrispondenza
+		return null;
 		}
-	
+	// metodo per visualizzare la prima data disponibile a partire dal giorno corrente 
 	public void primaDataDisponibile (){
 		try {
-			
-			Calendar c = Calendar.getInstance(); // calendar impostato al giorno di oggi
-		    Date giorno = c.getTime(); //oggetto di tipo data che salva il giorno di oggi del calendar
+			//calendar impostato al giorno corrente 
+			Calendar c = Calendar.getInstance(); 
+			//oggetto di tipo date che salva il giorno corrente 
+		    Date giorno = c.getTime(); 
 			SimpleDateFormat convertitoreDataStringa = new SimpleDateFormat("dd/MM/yy");		
 	    	Set <Date> insiemeDate = calendario.keySet();
 	    	DateFormat convertitoreStringaData = DateFormat.getDateInstance(DateFormat.SHORT); 
 			convertitoreStringaData.setLenient(false);
-		    boolean trovato = false; //flag
+		    boolean trovato = false; 
 		    while (!trovato) {
-		    	String strGiornata = convertitoreDataStringa.format(c.getTime()); //creo oggetto stringa in formato dd/MM/yy della data
-		    	giorno = convertitoreStringaData.parse(strGiornata); //creo oggetto data partendo dalla stringa 
+		    	//creo oggetto stringa in formato dd/MM/yy corrispondente alla data
+		    	String strGiornata = convertitoreDataStringa.format(c.getTime()); 
+		    	//creo oggetto data partendo dalla stringa 
+		    	giorno = convertitoreStringaData.parse(strGiornata); 
 		    	if (!insiemeDate.contains(giorno)) {
 		    		System.out.println("Prima data disponibile: "+ strGiornata);
 		    		trovato = true;	         
 		    	} else 
-		    		c.add(Calendar.DATE, 1);  // dice al calendario di aggiungere un giorno
+		    		//aggiunge un giorno al calendario
+		    		c.add(Calendar.DATE, 1);  
 		    }	
 		} catch (ParseException e) {
-			e.printStackTrace(); // dà la traccia dell'eccezione lanciata
-			
+			System.out.println ("Formato data non valido");
 		}
 	}
-	
+	//metodo per salvare le prenotazioni 
 	public void salvaPrenotazioni () {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream ( new BufferedOutputStream( new FileOutputStream("prenotazioni.dat")));
+			//salviamo entrambi gli hashmap
 			out.writeObject(calendario);
 			out.writeObject(registro);
-			out.close();	
-			
-			
+			out.close();		
 		} catch (IOException e) {
 			System.out.println ("Errore di I/O");
 			System.out.println(e);
 		}
 		System.out.println("Prenotazioni salvate!");
 		}
-	
+	//metodo per importare le prenotazioni salvate 
 	public void importaPrenotazioni () {
-		//HashMap <Date,String> calendario2 = null;
-		//HashMap <String, Vector> registro2 = null;
 		try {
 			ObjectInputStream in = new ObjectInputStream ( new BufferedInputStream ( new FileInputStream("prenotazioni.dat")));
+			//importo le prenotazioni salvate aggiornando entrambi gli hashmap
 			this.calendario = (HashMap) in.readObject();
 			this.registro = (HashMap) in.readObject();
 			in.close();
@@ -259,15 +257,3 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 		}
 		
 	}
-
-		
-				
-		
-			
-			
-	
-	
-	
-	
-	
-

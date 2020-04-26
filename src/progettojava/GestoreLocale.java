@@ -1,37 +1,32 @@
 package progettojava;
-import java.util.Scanner;
-import java.util.Vector;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.InputMismatchException; 
+import java.util.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import progettojava.Affitto.Catering;
 import progettojava.Affitto.CateringAnimazione;
 
-public class GestoreLocale {
-
+//classe per la gestione del locale contenente il metodo main e il metodo per la stampa del menu
+public class GestoreLocale { 
+    //metodo main contenente il menu organizzato secondo le possibili scelte dell'utente e il richiamo alla classe GestorePrenotazioni
 	public static void main(String[] args) {
 		Scanner input = new Scanner (System.in);
 		boolean ok;
 		int scelta;
 		GestorePrenotazioni gestorePrenotazioni;
-		//stampaMenu(); // stampare il menu 
 		do {
-			gestorePrenotazioni = new GestorePrenotazioni (); // creato oggetto gestorePrenotazioni
-			stampaMenu();
+			gestorePrenotazioni = new GestorePrenotazioni (); 
 			ok = true;
-			try { // aggiunto il try catch
-				scelta = input.nextInt(); //  acquisisco input	 
-				while (scelta !=10)	{
-				switch (scelta) {
+			try {
+				do {
+					stampaMenu();
+					scelta = input.nextInt(); 	 
+						switch (scelta) {
 					    case 1:
-					    	gestorePrenotazioni.aggiungiPrenotazione(); //richiamo il metodo aggiungiPrenotazione che si trova in GestorePrenotazioni
+					    	gestorePrenotazioni.aggiungiPrenotazione(); 
 					    	break;
 					    case 2:
-					    	gestorePrenotazioni.visualizzaPrenotazioni(); // richiamo il metodo visualizzaPrenotazioni 
+					    	gestorePrenotazioni.visualizzaPrenotazioni(); 
 					    	break;
 					    case 3:
 					    	gestorePrenotazioni.stampaCatering(true); 
@@ -43,7 +38,7 @@ public class GestoreLocale {
 						    gestorePrenotazioni.primaDataDisponibile();					
 					       break;
 					    case 6:
-					    	gestorePrenotazioni.visualizzaCliente(); // richiamo il metodo visualizzaCliente
+					    	gestorePrenotazioni.visualizzaCliente(); 
 					    	break;
 					    case 7:
 					    	gestorePrenotazioni.eliminaPrenotazione();
@@ -58,27 +53,20 @@ public class GestoreLocale {
 					    	System.out.println("Hai scelto di uscire dal programma, alla prossima!");
 					    	break;
 					    default:
-					    	System.out.println("Funzione non ancora implementata");
-				// default da togliere quando avremo implementato tutte le funzioni
-					
-					}
-					
-					stampaMenu();
-					scelta = input.nextInt(); // prima di tornare nel while mi richiede cosa voglio fare stampando di nuovo il menu
+					    	System.out.println("Valore non valido");
+						}
 				}
-			}
-			
+						while (scelta !=10);
+				}
 			    catch (InputMismatchException e) {
 				System.out.println("Valore non valido...");
 				input.nextLine();
 				System.out.println ("...ritenta!");
 				ok = false;
-			}
+			    }
 		} while (!ok);
 	}
-		
-	 // creazione menu del programma  
-	// \n serve per far andare a capo (new line)
+	// metodo per stampare il menu
 	public static void stampaMenu() {
 		System.out.println("Menu programma:\n"
 				+ "1 = aggiungere nuove prenotazioni \n"
