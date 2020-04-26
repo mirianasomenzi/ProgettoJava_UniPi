@@ -129,7 +129,7 @@ public class GestorePrenotazioni  implements Serializable {
 		boolean ok = true;
 		Scanner input = new Scanner (System.in);
 		do {
-			System.out.println ("Quale prenotazione vuoi eliminare?(Inserisci data formato dd/mm/aa");
+			System.out.println ("Quale prenotazione vuoi eliminare?(Inserisci data formato dd/mm/aa)");
 			ok = true;
 			try {
 				String strData = input.nextLine();
