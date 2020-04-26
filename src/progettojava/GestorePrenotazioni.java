@@ -240,13 +240,14 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 		}
 	
 	public void importaPrenotazioni () {
-		HashMap <Date,String> h2 = null;
-		HashMap <String, Vector> h3 = null;
+		//HashMap <Date,String> calendario2 = null;
+		//HashMap <String, Vector> registro2 = null;
 		try {
 			ObjectInputStream in = new ObjectInputStream ( new BufferedInputStream ( new FileInputStream("prenotazioni.dat")));
-			h2 = (HashMap) in.readObject();
-			h3 = (HashMap) in.readObject();
+			this.calendario = (HashMap) in.readObject();
+			this.registro = (HashMap) in.readObject();
 			in.close();
+			
 		} catch (ClassNotFoundException e) {
 			System.out.println("PROBLEMA (manca oggetto nel file)");
 			System.out.println(e);
@@ -254,7 +255,7 @@ public class GestorePrenotazioni  implements Serializable { // creato una nuova 
 			System.out.println("ERRORE di I/O");
 			System.out.println(e);
 		}
-		System.out.println(h3);
+		System.out.println(registro);
 		}
 		
 	}
