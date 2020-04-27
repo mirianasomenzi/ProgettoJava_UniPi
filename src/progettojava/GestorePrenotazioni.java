@@ -84,10 +84,11 @@ public class GestorePrenotazioni  implements Serializable {
 			}     
 		
 			catch (ParseException  e) {
-				System.out.println ("Formato data non valido");
-				//input.nextLine();
-				System.out.println ("Ritenta...");
+				System.out.println ("Formato data non valido... ritenta");
 			}
+		    catch (InputMismatchException e) {
+		    	System.out.println("Valore non valido...ritenta");
+		    }
 		}
 	
 	// metodo per visualizzare in maniera ordinata le prenotazioni  
@@ -117,7 +118,7 @@ public class GestorePrenotazioni  implements Serializable {
 						System.out.println("Catering con Animazione: \n" + prenotazione);	
 					} else if (prenotazione instanceof Catering && stampaAncheCatering) { 
 						System.out.println("Catering: \n"+ prenotazione);						
-					//} else if 
+					//}  
 						//System.out.println("Non sono ancora presenti prenotazioni di questo tipo");
 					}
 					}
@@ -163,17 +164,21 @@ public class GestorePrenotazioni  implements Serializable {
 	}
     // metodo per visualizzare la prenotazione partendo dal nome del cliente
 	public void visualizzaCliente () {
-		System.out.println("Inserisci cliente: ");
-		Scanner input = new Scanner (System.in);
-		String cliente= input.nextLine();
-		// richiamiamo il metodo cercaSubstringCliente
-		Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
-		if (prenotazioniEsistenti!= null) {
-			for(Affitto prenotazione : prenotazioniEsistenti) {
-				System.out.println(prenotazione);
+		try {
+			System.out.println("Inserisci cliente: ");
+			Scanner input = new Scanner (System.in);
+			String cliente= input.nextLine();
+			// richiamiamo il metodo cercaSubstringCliente
+			Vector <Affitto> prenotazioniEsistenti = cercaSubstringCliente(cliente);
+			if (prenotazioniEsistenti!= null) {
+				for(Affitto prenotazione : prenotazioniEsistenti) {
+					System.out.println(prenotazione);
+				}
 			}
+		} catch (InputMismatchException e) {
 		}
 	}
+	
 	//metodo per visualizzare le prenotazioni partendo da una porzione di nome del cliente
 	public Vector <Affitto> cercaSubstringCliente (String cliente) {
 		//se il registro contiene cliente
