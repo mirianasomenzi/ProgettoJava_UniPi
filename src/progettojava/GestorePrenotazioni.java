@@ -93,9 +93,6 @@ public class GestorePrenotazioni  implements Serializable {
 			catch (ParseException  e) {
 				System.out.println ("Formato data non valido... ritenta");
 			}
-		    catch (InputMismatchException e) {
-		    	System.out.println("Valore non valido...ritenta");
-		    }
 		}
 	
 	// metodo per visualizzare in maniera ordinata le prenotazioni  
