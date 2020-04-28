@@ -39,6 +39,7 @@ public class CateringAnimazione extends Catering {
 				}
 			} catch ( InputMismatchException e) {
 				System.out.println ("Valore non valido... \n" + "...ritenta!");
+				input.nextLine();
 				ok = false;
 			}	
 		} while (!ok);

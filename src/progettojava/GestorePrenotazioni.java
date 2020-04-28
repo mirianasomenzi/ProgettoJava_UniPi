@@ -36,15 +36,19 @@ public class GestorePrenotazioni  implements Serializable {
 			//se il calendario non contiene la data selezionata
 			if (!calendario.containsKey(d)) { 
 				System.out.println("Data disponibile");
+				boolean ok;
+				//variabile prenotazione di tipo affitto che include le possibili prenotazioni    
+				Affitto prenotazione = null; 
 				// associo il nome alla data 
 				calendario.put(d, nome);
+			do {
+				ok = true;
 				System.out.println ("Scegli una forma di prenotazione: \n" 
 	    			 + " 1 = semplice affitto del locale \n"
 	    			 + " 2 = affitto locale + catering \n"
 	    			 + " 3 = affitto locale + catering + animazione \n");
 			    	
-                //variabile prenotazione di tipo affitto che include le possibili prenotazioni    
-				Affitto prenotazione = null; 
+				System.out.println("Inserisci numero");
 				int sceltaPrenotazione = input.nextInt();
 				switch (sceltaPrenotazione ) {
 			    		 case 1: 
@@ -60,8 +64,11 @@ public class GestorePrenotazioni  implements Serializable {
 			    			 System.out.println("Prenotazione affitto con catering e animazione effettuata!");
 			    			 break;
 			    		 default : System.out.println ("Valore errato"); 
+			    		 ok = false;
 			    		 }
-		
+			} while (!ok);
+			if (!ok) throw new InputMismatchException();
+			
 				        //se la persona non è presente nel registro
 			    		if (!registro.containsKey(nome)) {
 			    			//creazione nuovo vettore dove inserire la prenotazione appena creata
