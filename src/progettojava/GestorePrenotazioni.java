@@ -261,6 +261,7 @@ public class GestorePrenotazioni  implements Serializable {
 		} catch (ClassNotFoundException e) {
 			System.out.println("PROBLEMA (manca oggetto nel file)");
 			System.out.println(e);
+		} catch (InvalidClassException e) {
 		} catch (IOException e) {
 			System.out.println("ERRORE di I/O");
 			System.out.println(e);
